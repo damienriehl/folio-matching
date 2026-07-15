@@ -1,0 +1,63 @@
+[project]
+name = "folio-matching"
+version = "0.1.0"
+description = "Shared FOLIO source-text-to-concept matching engine: scorer, span decomposition, gates, alias blocklist, domain-prior judge, and annotate primitives."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Damien Riehl" }]
+keywords = ["folio", "legal", "ontology", "nlp", "entity-matching", "taxonomy"]
+dependencies = [
+    "pydantic>=2.7,<3.0",
+]
+
+[project.optional-dependencies]
+# folio-python ontology adapter (the live FOLIO concept store)
+folio = ["folio-python[search]>=0.1.5"]
+# FAISS + local embeddings for the semantic recall path
+embedding = [
+    "faiss-cpu>=1.8,<2.0",
+    "sentence-transformers>=3.0,<4.0",
+    "numpy>=1.26,<3.0",
+]
+# spaCy EntityRuler adapter (optional; the pure-Python Aho-Corasick ruler is the default)
+spacy = ["spacy>=3.7,<4.0"]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "mypy>=1.10",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/folio_matching"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
+files = ["src/folio_matching"]
+
+[[tool.mypy.overrides]]
+# optional heavy deps have no stubs; adapters guard their imports at runtime
+module = ["faiss.*", "sentence_transformers.*", "spacy.*", "folio.*", "numpy.*"]
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "--strict-markers"

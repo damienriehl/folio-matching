@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "note": "Seed alias/homonym blocklist. Grown by 'wrong' per-tag verdicts from consumers (see docs). Synthetic/paraphrased entries only — this repo is public.",
+  "blocked_aliases": [
+    {
+      "surface_term": "Action",
+      "blocked_iri": "https://folio.openlegalstandard.org/EXAMPLE-Auction",
+      "domain": null,
+      "reason": "Ch02 unit 4b06a90c: 'Action != Auction'. Homonym; the fuzzy matcher paired the litigation term 'Action' with the auction-sale concept."
+    }
+  ]
+}
