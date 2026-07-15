@@ -1,12 +1,36 @@
 {
-  "version": 1,
-  "note": "Seed alias/homonym blocklist. Grown by 'wrong' per-tag verdicts from consumers (see docs). Synthetic/paraphrased entries only — this repo is public.",
+  "version": 2,
+  "note": "Shipped seed alias/homonym blocklist. Each entry is a recorded 'wrong' per-tag verdict from the Ch01/Ch02 book packs: a generic surface term that rapidfuzz over-scores onto a short proper-noun FOLIO label (an auction sale, or a governmental body). All IRIs are public FOLIO concepts (openlegalstandard.org) — no book/matter content lives here. Grown by future 'wrong' verdicts from consumers.",
   "blocked_aliases": [
     {
       "surface_term": "Action",
-      "blocked_iri": "https://folio.openlegalstandard.org/EXAMPLE-Auction",
+      "blocked_iri": "https://folio.openlegalstandard.org/R8kOvHwkY6TrQmB7RnYiWNO",
       "domain": null,
-      "reason": "Ch02 unit 4b06a90c: 'Action != Auction'. Homonym; the fuzzy matcher paired the litigation term 'Action' with the auction-sale concept."
+      "reason": "Ch02 unit 4b06a90c: 'Action != Auction'. Homonym; the fuzzy matcher paired the litigation term 'Action' with the auction-sale Event (score 92.3)."
+    },
+    {
+      "surface_term": "justice",
+      "blocked_iri": "https://folio.openlegalstandard.org/R0DB70442Cf8b73D9275F14a",
+      "domain": null,
+      "reason": "Ch01/Ch02 agency homonym: generic 'justice' over-scores onto 'U.S. Dept. of Justice' (Governmental Body, score 90)."
+    },
+    {
+      "surface_term": "state",
+      "blocked_iri": "https://folio.openlegalstandard.org/R0480ee8B57a1441863FE362",
+      "domain": null,
+      "reason": "Ch01/Ch02 agency homonym: generic 'state' over-scores onto 'U.S. Dept. of State' (Governmental Body, score 100)."
+    },
+    {
+      "surface_term": "tax",
+      "blocked_iri": "https://folio.openlegalstandard.org/R1B9b8f8D5c8164D9da3B238",
+      "domain": null,
+      "reason": "Ch01/Ch02 agency homonym: generic 'tax' over-scores onto 'U.S. Tax Court' (Governmental Body, score 100)."
+    },
+    {
+      "surface_term": "arb",
+      "blocked_iri": "https://folio.openlegalstandard.org/R3BA59dC5F90217F1ca0F87b",
+      "domain": null,
+      "reason": "Ch01/Ch02 agency homonym: abbreviation 'arb' over-scores onto 'U.S. Bankruptcy Court - D. Arizona' (Governmental Body, score 100)."
     }
   ]
 }

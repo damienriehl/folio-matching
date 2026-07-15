@@ -14,9 +14,16 @@ in one practice area can remain valid in another.
 from __future__ import annotations
 
 import json
+import logging
 from collections.abc import Iterable
 from dataclasses import dataclass
+from importlib import resources
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+# The shipped seed lives as package data so every consumer loads the same recorded verdicts.
+SEED_RESOURCE = ("folio_matching.data", "alias_blocklist.json")
 
 
 @dataclass(frozen=True)
@@ -72,6 +79,9 @@ class AliasBlocklist:
     def __len__(self) -> int:
         return len(self._entries)
 
+    def is_empty(self) -> bool:
+        return not self._entries
+
     def entries(self) -> list[BlockedAlias]:
         return list(self._entries.values())
 
@@ -90,6 +100,30 @@ class AliasBlocklist:
             for row in data.get("blocked_aliases", [])
         )
 
+    @classmethod
+    def from_seed(cls) -> AliasBlocklist:
+        """Load the blocklist shipped as package data (the recorded Ch01/Ch02 verdicts).
+
+        Returns an empty blocklist (never raises) if the seed resource is missing, so a consumer
+        degrades to "no homonym vetoes" rather than crashing the tagger.
+        """
+        pkg, name = SEED_RESOURCE
+        try:
+            data = (resources.files(pkg) / name).read_text(encoding="utf-8")
+        except (FileNotFoundError, ModuleNotFoundError, OSError):
+            logger.warning("Alias blocklist seed %s/%s not found; using empty blocklist", pkg, name)
+            return cls()
+        rows = json.loads(data).get("blocked_aliases", [])
+        return cls(
+            BlockedAlias(
+                surface_term=row["surface_term"],
+                blocked_iri=row["blocked_iri"],
+                domain=row.get("domain"),
+                reason=row.get("reason", ""),
+            )
+            for row in rows
+        )
+
     def save(self, path: str | Path) -> None:
         payload = {
             "version": 1,
@@ -104,3 +138,8 @@ class AliasBlocklist:
             ],
         }
         Path(path).write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+def load_seed_blocklist() -> AliasBlocklist:
+    """Module-level convenience: the shipped seed blocklist (recorded Ch01/Ch02 verdicts)."""
+    return AliasBlocklist.from_seed()
