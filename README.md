@@ -75,6 +75,26 @@ calibration, and annotate primitives depend on nothing heavier than `pydantic`. 
 sentence-transformers, spaCy, and folio-python live behind `Protocol` seams with working pure-Python
 defaults, so the whole test suite runs with no model downloads and no network.
 
+## Bring Your Own Key (BYOK)
+
+`folio-matching` is **key-agnostic** — it never reads an env var, instantiates a provider SDK, or makes
+a network call on its own. The **zero-key deterministic core** (ruler, scoring, decomposition, gates,
+blocklist, metadata exclusion, calibration, annotate) runs fully offline and free. Three optional stages
+accept a provider through a `typing.Protocol` seam you fill with an object you construct:
+
+| Stage | Protocol | Buys you | Absent → |
+|---|---|---|---|
+| **Judge** | `Judge.complete(system, user) -> str` | context-aware disambiguation + verdict enforcement | items pass through **unjudged** |
+| **Embeddings** | `EmbeddingProvider` (`embed`/`embed_batch`/`dimension`) | semantic recall for no-shared-token maps | local `all-MiniLM-L6-v2` default (no key), or skipped |
+| **Domain-prior suggestions** | `DomainPriorSuggester(ontology)` | auto-suggest corpus subject tags | supply tags manually |
+
+You own the key, the vendor (OpenAI / Gemini / Anthropic / local), and the spend. The library ships the
+judge **prompt builders** and **deterministic verdict enforcement**; you supply only the raw model call.
+Graceful degradation is the default — no key means deterministic-only output with items marked
+`unjudged`, never a crash. Reference cost: **≈ $0.12 / chapter on `gemini-2.5-flash-lite`** (~1,875
+calls, ~652K tokens, 464 units). Full guide, env-var conventions, and a minimal wiring example per
+vendor: **[docs/BYOK.md](docs/BYOK.md)**.
+
 ## Quick start
 
 ```python
