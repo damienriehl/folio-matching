@@ -20,6 +20,7 @@ Public surface (see module docstrings for provenance):
 * calibration   — ``ScoreCalibration`` (weak-band recalibration)
 * judge         — ``Judge``, ``build_judge_prompt``, ``parse_judge_json``
 * pipeline      — ``MatchPipeline`` (filter -> expand -> rank -> judge)
+* resolve       — ``LabelResolver``, ``ResolvedConcept`` (decompose-first, branch-carrying)
 * annotate      — ``ConceptTag``, ``TagVerdict``, ``Annotation``, ``FeedbackStore``, lifecycle
 """
 
@@ -27,7 +28,7 @@ from __future__ import annotations
 
 __version__ = "0.1.0"
 
-from .blocklist import AliasBlocklist, BlockedAlias
+from .blocklist import AliasBlocklist, BlockedAlias, load_seed_blocklist
 from .calibration import CalibrationSample, ScoreCalibration
 from .decompose import decompose
 from .domain_prior import DomainPrior, DomainPriorSuggester, SubjectTag, TagStatus, TaxonomyNode
@@ -37,6 +38,12 @@ from .judge import Judge, build_judge_prompt, enforce_verdict, parse_judge_json
 from .ontology import Concept, FolioPythonProvider, InMemoryOntology, LabelInfo, OntologyProvider
 from .pipeline import MatchCandidate, MatchPipeline
 from .reconciler import ConceptMatch, Reconciler, ReconciliationResult
+from .resolve import (
+    CONJUNCT_THRESHOLD,
+    WHOLE_STRING_THRESHOLD,
+    LabelResolver,
+    ResolvedConcept,
+)
 from .scoring import (
     LEGAL_TERM_EXPANSIONS,
     SEARCH_STOPWORDS,
@@ -52,9 +59,11 @@ from .spec import BUILTIN_SPECS, CANON_SPEC, FOLIO_SPEC, OntologySpec
 __all__ = [
     "BUILTIN_SPECS",
     "CANON_SPEC",
+    "CONJUNCT_THRESHOLD",
     "FOLIO_SPEC",
     "LEGAL_TERM_EXPANSIONS",
     "SEARCH_STOPWORDS",
+    "WHOLE_STRING_THRESHOLD",
     "AliasBlocklist",
     "BlockedAlias",
     "CalibrationSample",
@@ -68,6 +77,7 @@ __all__ = [
     "InMemoryOntology",
     "Judge",
     "LabelInfo",
+    "LabelResolver",
     "MatchCandidate",
     "MatchPipeline",
     "OntologyProvider",
@@ -75,6 +85,7 @@ __all__ = [
     "PlaceNameGate",
     "Reconciler",
     "ReconciliationResult",
+    "ResolvedConcept",
     "ScoreCalibration",
     "ShortLabelGate",
     "SourceClassifier",
@@ -89,6 +100,7 @@ __all__ = [
     "decompose",
     "enforce_verdict",
     "generate_search_terms",
+    "load_seed_blocklist",
     "parse_judge_json",
     "tokenize",
     "word_overlap",

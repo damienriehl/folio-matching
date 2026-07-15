@@ -48,6 +48,20 @@ def test_place_name_demoted_without_corroboration() -> None:
     assert d.score <= 40.0
 
 
+def test_agency_homonym_demoted_without_corroboration() -> None:
+    # Ch02 agency homonym: "effect of answers" -> Federal Election Commission (Governmental Body).
+    # The gate now governs the governmental-body branch too, so it vetoes the mis-map.
+    gate = PlaceNameGate(min_signals=2)
+    d = gate.evaluate(
+        query="effect of answers",
+        label="Federal Election Commission",
+        branch="Governmental Body",
+        score=90.0,
+    )
+    assert d.demoted
+    assert d.score <= 40.0
+
+
 def test_place_name_allowed_when_exact() -> None:
     gate = PlaceNameGate()
     d = gate.evaluate(query="Slovenia", label="Slovenia", branch="Location", score=99.0)

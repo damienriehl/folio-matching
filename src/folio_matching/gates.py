@@ -19,8 +19,20 @@ from dataclasses import dataclass
 
 from .scoring import content_words
 
-# Branch labels (and substrings) that indicate a geographic/place concept in FOLIO.
-_PLACE_BRANCH_MARKERS = ("location", "geograph", "country", "jurisdiction", "place")
+# Branch substrings that mark a concept the place-name gate governs: geographic places AND
+# governmental bodies/agencies. Both share the Ch02 failure mode — rapidfuzz over-scores their
+# short proper-noun labels, so generic terms mis-map to them ("law" -> Delaware [Location],
+# "effect of answers" -> Federal Election Commission [Governmental Body]). Keying the gate on
+# these branches is what lets it veto the whole class once the resolved tag carries its branch.
+_PLACE_BRANCH_MARKERS = (
+    "location",
+    "geograph",
+    "country",
+    "jurisdiction",
+    "place",
+    "governmental",
+    "agency",
+)
 
 # A curated set of place-name tokens that notoriously over-score. Extend from verdict data.
 _PLACE_NAME_TOKENS = frozenset(
