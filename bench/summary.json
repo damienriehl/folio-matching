@@ -1,0 +1,468 @@
+{
+  "engines": {
+    "spacy": {
+      "engine": "spacy",
+      "index_labels": 69368,
+      "lemma_keys_in_index": 968,
+      "build_s": 1.63,
+      "rss_before_mb": 322.1,
+      "rss_after_build_mb": 1093.2,
+      "gold": {
+        "preferred": {
+          "n": 300,
+          "hits": 255,
+          "miss_examples": [
+            "u.s. dept. of homeland security",
+            "answer with cross-claims",
+            "new york city court - mt. vernon",
+            "illinois circuit court - hardin county (2nd circuit court)",
+            "party-determined list system",
+            "changes in target's industry language",
+            "merchant wholesalers, durable goods industry",
+            "interlingue; occidental",
+            "other justice, public order, and safety activities",
+            "nursery, garden center, and farm supply retailers",
+            "lessee\u2019s default on lease of goods",
+            "architectural, engineering, and related services industry"
+          ]
+        },
+        "alternative": {
+          "n": 200,
+          "hits": 187,
+          "miss_examples": [
+            "motion pour exclure un t\u00e9moin de ou\u00ef-dire",
+            "\u092e\u0902\u091c\u0942\u0930 \u092b\u0902\u0921/\u0938\u0902\u092c\u0902\u0927\u093f\u0924 \u092b\u0902\u0921 \u0915\u0940 \u092a\u0930\u093f\u092d\u093e\u0937\u093e",
+            "\u05ea\u05e7\u05df mae \u05d4\u05de\u05ea\u05d1\u05e1\u05e1 \u05e2\u05dc \u05ea\u05e4\u05d9\u05e1\u05ea \u05d4\u05e2\u05ea\u05d9\u05d3 - \u05e9\u05e4\u05ea \"would\"",
+            "\u5b9e\u8d28\u4e0d\u5229\u5f71\u54cd\u5b9a\u4e49 - \"\u77e5\u8bc6\u4ec5\u9650\u4e8e\u5df2\u786e\u5b9a\u4eba\u5458\"\u8bed\u8a00",
+            "\u092c\u0948\u0902\u0915\u093f\u0902\u0917, \u0915\u092e\u0930\u094d\u0936\u093f\u092f\u0932 \u092a\u0947\u092a\u0930 \u0914\u0930 \u0915\u094d\u0930\u0947\u0921\u093f\u091f\u0930 \u0915\u094d\u0932\u0947\u092e\u094d\u0938",
+            "us-b\u00fcro f\u00fcr justizhilfe",
+            "\u05e1\u05d9\u05d1\u05ea \u05ea\u05d9\u05e7\u05d5\u05df/\u05e9\u05d9\u05e0\u05d5\u05d9 \u05d1\u05e4\u05e7\u05d5\u05d3\u05ea \u05d4\u05e6\u05d5\u05d5\u05d0\u05d4 \u05e9\u05dc \u05d4\u05d0\u05e4\u05d5\u05d8\u05e8\u05d5\u05e4\u05d5\u05e1 \u05d0\u05d5 \u05d4\u05de\u05e9\u05de\u05e8",
+            "antrag auf wiederer\u00f6ffnung des kapitel 7-falls",
+            "\u7f57\u9a6c\u5c3c\u4e9a\u8bed; \u6469\u5c14\u591a\u74e6\u8bed",
+            "\u0905\u0902\u0924\u0930-\u091c\u093f\u0932\u093e \u0938\u094d\u0925\u093e\u0928\u093e\u0902\u0924\u0930\u0923 \u0915\u0947 \u0932\u093f\u090f \u092e\u094b\u0936\u0928",
+            "verwaltungsb\u00fcro der us-gerichte",
+            "\"\u0917\u094b\u092a\u0928\u0940\u092f \u0938\u0942\u091a\u0928\u093e\" \u0915\u0940 \u092a\u0930\u093f\u092d\u093e\u0937\u093e - \u0905\u092a\u0935\u093e\u0926 - \u0938\u094d\u0935\u0924\u0902\u0924\u094d\u0930 \u0930\u0942\u092a \u0938\u0947 \u0935\u093f\u0915\u0938\u093f\u0924"
+          ]
+        },
+        "lemma_preferred": {
+          "n": 150,
+          "hits": 150,
+          "miss_examples": []
+        },
+        "lemma_alternative": {
+          "n": 50,
+          "hits": 50,
+          "miss_examples": []
+        },
+        "punct_multiword": {
+          "n": 150,
+          "hits": 110,
+          "miss_examples": [
+            "r\u00e9clamation de clause d'import-export",
+            "\"\u91cd\u5927\u4e0d\u5229\u5f71\u97ff\"\u306e\u5b9a\u7fa9-\u4f8b\u5916- gaap\u306e\u5909\u66f4",
+            "\u05d0\u05d9\u05e8\u05d5\u05e2\u05d9 \u05d7\u05d3-\u05e4\u05e2\u05de\u05d9\u05d5\u05ea \u05d5\u05de\u05d1\u05e0\u05d4 \u05de\u05d7\u05d3\u05e9",
+            "dep\u00f3sito (acuerdo)",
+            "illinois circuit court - madison county (3rd circuit court)",
+            "prozessart: richter oder jury",
+            "contract-based restructuring",
+            "non-vertebrate animal",
+            "u.s. court of claims",
+            "pulp, paper, and paperboard mills",
+            "limburgan; limburger; limburgish",
+            "state-level public servant"
+          ]
+        }
+      },
+      "whitespace": {
+        "newline": {
+          "n": 100,
+          "hits": 3
+        },
+        "double_space": {
+          "n": 100,
+          "hits": 3
+        }
+      },
+      "traps": {
+        "total_fp": 13,
+        "per_trap": [
+          {
+            "trap": "action",
+            "fp_matches": 1
+          },
+          {
+            "trap": "state",
+            "fp_matches": 1
+          },
+          {
+            "trap": "tax",
+            "fp_matches": 1
+          },
+          {
+            "trap": "charge",
+            "fp_matches": 1
+          },
+          {
+            "trap": "trial",
+            "fp_matches": 1
+          },
+          {
+            "trap": "justice",
+            "fp_matches": 0
+          },
+          {
+            "trap": "will",
+            "fp_matches": 0
+          },
+          {
+            "trap": "grant",
+            "fp_matches": 1
+          },
+          {
+            "trap": "motion",
+            "fp_matches": 1
+          },
+          {
+            "trap": "brief",
+            "fp_matches": 1
+          },
+          {
+            "trap": "party",
+            "fp_matches": 1
+          },
+          {
+            "trap": "court",
+            "fp_matches": 1
+          },
+          {
+            "trap": "order",
+            "fp_matches": 1
+          },
+          {
+            "trap": "title",
+            "fp_matches": 1
+          },
+          {
+            "trap": "claim",
+            "fp_matches": 1
+          }
+        ]
+      },
+      "throughput": {
+        "demo_chars": 156876,
+        "demo_best_s": 15.782,
+        "demo_chars_per_s": 9940,
+        "demo_matches": 3820,
+        "stress_chars": 941266,
+        "stress_s": 97.038,
+        "stress_chars_per_s": 9699,
+        "stress_error": null
+      }
+    },
+    "ac": {
+      "engine": "ac",
+      "index_labels": 69368,
+      "lemma_keys_in_index": 968,
+      "build_s": 2.31,
+      "rss_before_mb": 321.7,
+      "rss_after_build_mb": 641.1,
+      "gold": {
+        "preferred": {
+          "n": 300,
+          "hits": 300,
+          "miss_examples": []
+        },
+        "alternative": {
+          "n": 200,
+          "hits": 200,
+          "miss_examples": []
+        },
+        "lemma_preferred": {
+          "n": 150,
+          "hits": 150,
+          "miss_examples": []
+        },
+        "lemma_alternative": {
+          "n": 50,
+          "hits": 50,
+          "miss_examples": []
+        },
+        "punct_multiword": {
+          "n": 150,
+          "hits": 150,
+          "miss_examples": []
+        }
+      },
+      "whitespace": {
+        "newline": {
+          "n": 100,
+          "hits": 3
+        },
+        "double_space": {
+          "n": 100,
+          "hits": 3
+        }
+      },
+      "traps": {
+        "total_fp": 13,
+        "per_trap": [
+          {
+            "trap": "action",
+            "fp_matches": 1
+          },
+          {
+            "trap": "state",
+            "fp_matches": 1
+          },
+          {
+            "trap": "tax",
+            "fp_matches": 1
+          },
+          {
+            "trap": "charge",
+            "fp_matches": 1
+          },
+          {
+            "trap": "trial",
+            "fp_matches": 1
+          },
+          {
+            "trap": "justice",
+            "fp_matches": 0
+          },
+          {
+            "trap": "will",
+            "fp_matches": 0
+          },
+          {
+            "trap": "grant",
+            "fp_matches": 1
+          },
+          {
+            "trap": "motion",
+            "fp_matches": 1
+          },
+          {
+            "trap": "brief",
+            "fp_matches": 1
+          },
+          {
+            "trap": "party",
+            "fp_matches": 1
+          },
+          {
+            "trap": "court",
+            "fp_matches": 1
+          },
+          {
+            "trap": "order",
+            "fp_matches": 1
+          },
+          {
+            "trap": "title",
+            "fp_matches": 1
+          },
+          {
+            "trap": "claim",
+            "fp_matches": 1
+          }
+        ]
+      },
+      "throughput": {
+        "demo_chars": 156876,
+        "demo_best_s": 0.292,
+        "demo_chars_per_s": 537260,
+        "demo_matches": 4914,
+        "stress_chars": 941266,
+        "stress_s": 9.82,
+        "stress_chars_per_s": 95851,
+        "stress_error": null
+      }
+    },
+    "ac-base": {
+      "engine": "ac-base",
+      "index_labels": 68400,
+      "lemma_keys_in_index": 0,
+      "build_s": 2.31,
+      "rss_before_mb": 323.6,
+      "rss_after_build_mb": 642.1,
+      "gold": {
+        "preferred": {
+          "n": 300,
+          "hits": 300,
+          "miss_examples": []
+        },
+        "alternative": {
+          "n": 200,
+          "hits": 200,
+          "miss_examples": []
+        },
+        "lemma_preferred": {
+          "n": 150,
+          "hits": 0,
+          "miss_examples": [
+            "doukhala",
+            "miren",
+            "rule",
+            "basse",
+            "manawatu",
+            "lentil",
+            "schleswig",
+            "print",
+            "constitution",
+            "tribe",
+            "tangerine",
+            "kidnap"
+          ]
+        },
+        "lemma_alternative": {
+          "n": 50,
+          "hits": 0,
+          "miss_examples": [
+            "dokumentensammlungsereigni",
+            "mx+bc",
+            "utility",
+            "ereigni",
+            "\u05de\u05d1\u05e7\u05e9",
+            "joint",
+            "complete",
+            "rico",
+            "yupik",
+            "vestingschema",
+            "bundesrenten",
+            "\u0906\u0935\u0947\u0926\u0915"
+          ]
+        },
+        "punct_multiword": {
+          "n": 150,
+          "hits": 150,
+          "miss_examples": []
+        }
+      },
+      "whitespace": {
+        "newline": {
+          "n": 100,
+          "hits": 2
+        },
+        "double_space": {
+          "n": 100,
+          "hits": 2
+        }
+      },
+      "traps": {
+        "total_fp": 10,
+        "per_trap": [
+          {
+            "trap": "action",
+            "fp_matches": 0
+          },
+          {
+            "trap": "state",
+            "fp_matches": 1
+          },
+          {
+            "trap": "tax",
+            "fp_matches": 1
+          },
+          {
+            "trap": "charge",
+            "fp_matches": 1
+          },
+          {
+            "trap": "trial",
+            "fp_matches": 1
+          },
+          {
+            "trap": "justice",
+            "fp_matches": 0
+          },
+          {
+            "trap": "will",
+            "fp_matches": 0
+          },
+          {
+            "trap": "grant",
+            "fp_matches": 1
+          },
+          {
+            "trap": "motion",
+            "fp_matches": 0
+          },
+          {
+            "trap": "brief",
+            "fp_matches": 1
+          },
+          {
+            "trap": "party",
+            "fp_matches": 1
+          },
+          {
+            "trap": "court",
+            "fp_matches": 0
+          },
+          {
+            "trap": "order",
+            "fp_matches": 1
+          },
+          {
+            "trap": "title",
+            "fp_matches": 1
+          },
+          {
+            "trap": "claim",
+            "fp_matches": 1
+          }
+        ]
+      },
+      "throughput": {
+        "demo_chars": 156876,
+        "demo_best_s": 0.211,
+        "demo_chars_per_s": 742869,
+        "demo_matches": 4216,
+        "stress_chars": 941266,
+        "stress_s": 7.017,
+        "stress_chars_per_s": 134133,
+        "stress_error": null
+      }
+    }
+  },
+  "corpus_diff": {
+    "spacy_total": 3820,
+    "ac_total": 4914,
+    "both": 3818,
+    "spacy_only": 2,
+    "ac_only": 1096,
+    "spacy_only_examples": [
+      "post-trial"
+    ],
+    "ac_only_examples": [
+      "ACTION",
+      "ADV",
+      "AGREEMENT",
+      "APPEALS",
+      "Analysis",
+      "Appeal",
+      "CAUSE",
+      "CLASS",
+      "CLOSING",
+      "COURT",
+      "Class",
+      "Closing",
+      "Confidential",
+      "Contract",
+      "Corp",
+      "DISCOVERY",
+      "Data",
+      "Debt",
+      "Duty",
+      "Esq",
+      "Estate",
+      "Executive",
+      "FLORIDA",
+      "Fed. R. Civ. P.",
+      "Firm"
+    ],
+    "ac_base_total": 4216,
+    "ac_vs_ac_base_gained": 698
+  }
+}

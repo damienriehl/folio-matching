@@ -67,13 +67,42 @@ label token (Presumptions → Litigation Burdens of Proof). Those became this li
 uv add folio-resolve                 # core (pure-Python, only pydantic)
 uv add "folio-resolve[folio]"        # + folio-python live ontology adapter
 uv add "folio-resolve[embedding]"    # + sentence-transformers / faiss for the semantic path
-uv add "folio-resolve[spacy]"        # + optional spaCy ruler adapter
+uv add "folio-resolve[spacy]"        # + lemma-key index augmentation (build-time only)
 ```
 
 The **core is pure-Python** — the scorer, decomposition, gates, blocklist, domain-prior, reconciler,
 calibration, and annotate primitives depend on nothing heavier than `pydantic`. FAISS,
 sentence-transformers, spaCy, and folio-python live behind `Protocol` seams with working pure-Python
 defaults, so the whole test suite runs with no model downloads and no network.
+
+### Lemma-key augmentation (`[spacy]` extra, v0.2.0)
+
+The 2026-07 ruler shootout ([bench/RESULTS.md](bench/RESULTS.md)) showed the recall edge folio-enrich's
+spaCy ruler appeared to have lives in its **label index**, not its engine: lemma keys let the singular
+surface *agreement* reach the plural-labelled concept *Agreements* (+200/200 lemma-gold hits, +698
+corpus matches). v0.2.0 promotes that indexing here, engine-agnostic:
+
+```python
+from folio_resolve import FOLIOEntityRuler, augment_labels
+
+labels = provider.all_labels()                      # any OntologyProvider
+labels = augment_labels(                            # adds lemma_preferred / lemma_alternative keys
+    labels,
+    cache_dir="~/.folio-resolve/lemmas",            # cached by ontology hash + LEMMA_VERSION
+    ontology_hash=owl_content_hash,
+    on_missing_spacy="skip",                        # no [spacy] extra -> un-augmented index, no crash
+)
+ruler = FOLIOEntityRuler()
+ruler.load_patterns(labels)                         # pure-Python matching, zero heavy deps
+```
+
+**spaCy is needed only at index-build time** (computing what each label's lemma is; requires the
+`[spacy]` extra plus `python -m spacy download en_core_web_sm`). Steady-state consumers load the
+cached JSON lemma map and never import spaCy. Without the extra: the default raises a clear
+`SpacyNotInstalledError`; `on_missing_spacy="skip"` degrades to the un-augmented index. Use it
+whenever documents refer to concepts in the singular while the ontology labels them in the plural
+(FOLIO does, pervasively); skip it for exact-vocabulary corpora. Legal pluralia tantum (*damages*,
+*proceedings*, *wills*, …) are denylisted per-ontology via `OntologySpec.behavior.lemma_denylist`.
 
 ## Bring Your Own Key (BYOK)
 

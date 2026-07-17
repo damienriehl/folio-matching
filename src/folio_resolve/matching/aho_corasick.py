@@ -103,16 +103,29 @@ class AhoCorasickMatcher:
         return self._resolve_overlaps(raw)
 
     def _resolve_overlaps(self, matches: list[MatchResult]) -> list[MatchResult]:
-        """Contained spans both survive; partial overlaps: longer wins; duplicates deduped."""
+        """Contained spans both survive; partial overlaps: longer wins; duplicates deduped.
+
+        Active-interval sweep: matches are processed in ``(start, -length)`` order, so a kept
+        span whose ``end <= match.start`` can never overlap this or any later match and is
+        retired from the comparison window. This replaces the previous full rescan of every
+        kept span per match — O(m^2) in match count, measured on the 2026-07-16 ruler shootout
+        as a 531K -> 79K chars/s throughput decay between a 157KB and a 1.1MB document
+        (``bench/RESULTS.md`` finding 5) — while making identical keep/replace/drop decisions:
+        the retired spans are exactly those the old inner loop skipped with its "no overlap"
+        ``continue``, and relative order among survivors is preserved.
+        """
         if not matches:
             return []
 
         matches.sort(key=lambda m: (m.start, -(m.end - m.start)))
         resolved: list[MatchResult] = []
+        active: list[int] = []  # indices into `resolved` that can still overlap new matches
 
         for match in matches:
+            active = [i for i in active if resolved[i].end > match.start]
             dominated = False
-            for i, kept in enumerate(resolved):
+            for i in active:
+                kept = resolved[i]
                 if match.start >= kept.end or match.end <= kept.start:
                     continue  # no overlap
                 if match.start == kept.start and match.end == kept.end:
@@ -129,6 +142,7 @@ class AhoCorasickMatcher:
                 dominated = True
                 break
             if not dominated:
+                active.append(len(resolved))
                 resolved.append(match)
 
         resolved.sort(key=lambda m: (m.start, -(m.end - m.start)))

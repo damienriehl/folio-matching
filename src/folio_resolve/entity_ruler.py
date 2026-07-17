@@ -32,8 +32,11 @@ _STOPWORDS: frozenset[str] = frozenset(
 )
 
 # Confidence assigned to a ruler hit by label type (preferred labels are more trustworthy).
+# Lemma-derived keys (see folio_resolve.lemma) inherit their base tier: the lemma of a
+# preferred label is preferred-grade evidence; the lemma of an alternative, alternative-grade.
 _PREFERRED_CONFIDENCE = 0.72
 _ALTERNATIVE_CONFIDENCE = 0.55
+_PREFERRED_TIER = frozenset({"preferred", "lemma_preferred"})
 
 
 @dataclass
@@ -99,7 +102,7 @@ class FOLIOEntityRuler:
             raw_id = str(m.value.get("id", ""))
             iri, label_type = decode_pattern_id(raw_id)
             confidence = (
-                _PREFERRED_CONFIDENCE if label_type == "preferred" else _ALTERNATIVE_CONFIDENCE
+                _PREFERRED_CONFIDENCE if label_type in _PREFERRED_TIER else _ALTERNATIVE_CONFIDENCE
             )
             out.append(
                 EntityRulerMatch(
