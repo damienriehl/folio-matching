@@ -1,6 +1,6 @@
 """Annotate primitives — the feature-rich display + feedback layer.
 
-Per Damien's ``feedback_share`` directive: folio-matching must be first-class, not a minimal
+Per Damien's ``feedback_share`` directive: folio-resolve must be first-class, not a minimal
 extraction. This package lifts folio-enrich's confidence scores, per-item feedback, notes,
 reject/restore lifecycle, and feedback insights as library primitives — plus the new **per-tag
 verdict** (``correct`` / ``weak`` / ``wrong`` + note) the Ch02 review demanded.

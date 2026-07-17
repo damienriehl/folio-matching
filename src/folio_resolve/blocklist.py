@@ -23,7 +23,7 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 # The shipped seed lives as package data so every consumer loads the same recorded verdicts.
-SEED_RESOURCE = ("folio_matching.data", "alias_blocklist.json")
+SEED_RESOURCE = ("folio_resolve.data", "alias_blocklist.json")
 
 
 @dataclass(frozen=True)

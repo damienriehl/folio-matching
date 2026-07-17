@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from folio_matching import (
+from folio_resolve import (
     AliasBlocklist,
     BlockedAlias,
     DomainPrior,
     InMemoryOntology,
     MatchPipeline,
 )
-from folio_matching.embedding import BruteForceIndex, HashingEmbeddingProvider
+from folio_resolve.embedding import BruteForceIndex, HashingEmbeddingProvider
 
 
 def test_word_order_invariant_match(ontology: InMemoryOntology) -> None:
@@ -55,7 +55,7 @@ def test_metadata_source_excluded(ontology: InMemoryOntology) -> None:
 def test_semantic_path_recovers_no_shared_token_map() -> None:
     # Ch02 finding 005: "Presumptions" -> "Litigation Burdens of Proof" (no shared label token).
     ont = InMemoryOntology.__new__(InMemoryOntology)
-    from folio_matching import Concept
+    from folio_resolve import Concept
 
     ont = InMemoryOntology(
         [

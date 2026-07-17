@@ -1,7 +1,7 @@
 """FOLIO entity ruler.
 
 Ports folio-enrich's ``entity_ruler`` (pattern builder + ruler) but runs on the pure-Python
-:class:`~folio_matching.matching.aho_corasick.AhoCorasickMatcher` instead of spaCy, so it needs
+:class:`~folio_resolve.matching.aho_corasick.AhoCorasickMatcher` instead of spaCy, so it needs
 no model download. Pattern IDs encode ``iri|label_type`` exactly as the source, and the
 stopword / minimum-length guards are preserved.
 """

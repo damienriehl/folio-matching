@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from folio_matching import ConceptMatch, Reconciler
+from folio_resolve import ConceptMatch, Reconciler
 
 
 def _cm(text: str, iri: str = "", conf: float = 0.7, **kw: object) -> ConceptMatch:

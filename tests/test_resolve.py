@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from folio_matching import (
+from folio_resolve import (
     WHOLE_STRING_THRESHOLD,
     AliasBlocklist,
     LabelResolver,

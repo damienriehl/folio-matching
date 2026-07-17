@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from folio_matching import Concept, FOLIOEntityRuler, InMemoryOntology
-from folio_matching.matching import AhoCorasickMatcher
+from folio_resolve import Concept, FOLIOEntityRuler, InMemoryOntology
+from folio_resolve.matching import AhoCorasickMatcher
 
 
 def test_match_offsets_and_word_boundary() -> None:

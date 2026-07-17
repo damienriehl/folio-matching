@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from folio_matching import (
+from folio_resolve import (
     AliasBlocklist,
     BlockedAlias,
     CalibrationSample,
@@ -15,7 +15,7 @@ from folio_matching import (
     SourceType,
     decompose,
 )
-from folio_matching.domain_prior import TagStatus
+from folio_resolve.domain_prior import TagStatus
 
 # -- decompose (unit 12b5e434 / finding 005) -----------------------------
 
@@ -157,7 +157,7 @@ def test_domain_prior_multi_tag_lifecycle() -> None:
 
 def test_domain_prior_validate_invalidate() -> None:
     prior = DomainPrior(corpus_name="c")
-    from folio_matching.domain_prior import SubjectTag
+    from folio_resolve.domain_prior import SubjectTag
 
     prior.merge_suggestions([SubjectTag(iri="R-x", label="Contract Law", confidence=0.9)])
     assert prior.tags[0].status == TagStatus.SUGGESTED
@@ -169,7 +169,7 @@ def test_domain_prior_validate_invalidate() -> None:
 
 
 def test_domain_prior_suggester(ontology: object) -> None:
-    from folio_matching import InMemoryOntology
+    from folio_resolve import InMemoryOntology
 
     assert isinstance(ontology, InMemoryOntology)
     suggester = DomainPriorSuggester(ontology, min_score=70.0)

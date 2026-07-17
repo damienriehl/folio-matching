@@ -5,7 +5,7 @@ from __future__ import annotations
 from itertools import pairwise
 from pathlib import Path
 
-from folio_matching.annotate import (
+from folio_resolve.annotate import (
     Annotation,
     ConceptTag,
     Span,
@@ -18,8 +18,8 @@ from folio_matching.annotate import (
     render_segments,
     restore,
 )
-from folio_matching.annotate.feedback_store import FeedbackStore
-from folio_matching.annotate.models import FeedbackEntry
+from folio_resolve.annotate.feedback_store import FeedbackStore
+from folio_resolve.annotate.models import FeedbackEntry
 
 
 def _ann(iri: str, start: int, end: int, text: str, conf: float = 0.9) -> Annotation:

@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import json
 
-from folio_matching import build_judge_prompt, enforce_verdict, parse_judge_json
-from folio_matching.judge import SCORE_CALIBRATION, build_contextual_rerank_prompt
+from folio_resolve import build_judge_prompt, enforce_verdict, parse_judge_json
+from folio_resolve.judge import SCORE_CALIBRATION, build_contextual_rerank_prompt
 
 
 def test_enforce_rejected_forces_zero() -> None:

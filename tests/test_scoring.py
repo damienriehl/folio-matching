@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from folio_matching.scoring import (
+from folio_resolve.scoring import (
     compute_relevance_score,
     content_words,
     generate_search_terms,

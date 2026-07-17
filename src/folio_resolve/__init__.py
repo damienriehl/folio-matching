@@ -1,4 +1,4 @@
-"""folio-matching — the shared FOLIO source-text-to-concept matching engine.
+"""folio-resolve — the shared FOLIO source-text-to-concept matching engine.
 
 A lift-and-improve extraction of the matching intelligence that previously lived — and diverged —
 across folio-mapper, folio-enrich, and folio-insights (informally shared through a fragile

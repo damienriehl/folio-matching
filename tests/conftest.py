@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from folio_matching import Concept, InMemoryOntology
+from folio_resolve import Concept, InMemoryOntology
 
 
 @pytest.fixture
