@@ -19,6 +19,7 @@ Public surface (see module docstrings for provenance):
 * domain_prior  — ``DomainPrior``, ``DomainPriorSuggester``, ``TaxonomyNode`` (multi-tag)
 * calibration   — ``ScoreCalibration`` (weak-band recalibration)
 * judge         — ``Judge``, ``build_judge_prompt``, ``parse_judge_json``
+* lemma         — ``augment_labels`` (lemma-key index augmentation; ``[spacy]`` extra, build-time only)
 * pipeline      — ``MatchPipeline`` (filter -> expand -> rank -> judge)
 * resolve       — ``LabelResolver``, ``ResolvedConcept`` (decompose-first, branch-carrying)
 * annotate      — ``ConceptTag``, ``TagVerdict``, ``Annotation``, ``FeedbackStore``, lifecycle
@@ -26,7 +27,7 @@ Public surface (see module docstrings for provenance):
 
 from __future__ import annotations
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 from .blocklist import AliasBlocklist, BlockedAlias, load_seed_blocklist
 from .calibration import CalibrationSample, ScoreCalibration
@@ -35,6 +36,16 @@ from .domain_prior import DomainPrior, DomainPriorSuggester, SubjectTag, TagStat
 from .entity_ruler import FOLIOEntityRuler
 from .gates import GateDecision, PlaceNameGate, ShortLabelGate
 from .judge import Judge, build_judge_prompt, enforce_verdict, parse_judge_json
+from .lemma import (
+    LEMMA_VERSION,
+    Lemmatizer,
+    SpacyNotInstalledError,
+    augment_labels,
+    compute_label_lemmas,
+    load_lemma_cache,
+    save_lemma_cache,
+    spacy_lemmatizer,
+)
 from .ontology import Concept, FolioPythonProvider, InMemoryOntology, LabelInfo, OntologyProvider
 from .pipeline import MatchCandidate, MatchPipeline
 from .reconciler import ConceptMatch, Reconciler, ReconciliationResult
@@ -62,6 +73,7 @@ __all__ = [
     "CONJUNCT_THRESHOLD",
     "FOLIO_SPEC",
     "LEGAL_TERM_EXPANSIONS",
+    "LEMMA_VERSION",
     "SEARCH_STOPWORDS",
     "WHOLE_STRING_THRESHOLD",
     "AliasBlocklist",
@@ -78,6 +90,7 @@ __all__ = [
     "Judge",
     "LabelInfo",
     "LabelResolver",
+    "Lemmatizer",
     "MatchCandidate",
     "MatchPipeline",
     "OntologyProvider",
@@ -90,18 +103,24 @@ __all__ = [
     "ShortLabelGate",
     "SourceClassifier",
     "SourceType",
+    "SpacyNotInstalledError",
     "SubjectTag",
     "TagStatus",
     "TaxonomyNode",
     "__version__",
+    "augment_labels",
     "build_judge_prompt",
+    "compute_label_lemmas",
     "compute_relevance_score",
     "content_words",
     "decompose",
     "enforce_verdict",
     "generate_search_terms",
+    "load_lemma_cache",
     "load_seed_blocklist",
     "parse_judge_json",
+    "save_lemma_cache",
+    "spacy_lemmatizer",
     "tokenize",
     "word_overlap",
 ]
