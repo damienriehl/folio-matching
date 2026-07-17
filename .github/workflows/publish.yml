@@ -1,0 +1,51 @@
+name: Publish to PyPI
+
+# Publishes folio-resolve to PyPI via PyPI Trusted Publishing (OIDC) — no API
+# tokens or secrets are stored in this repo. Fires when a GitHub Release is
+# published, or manually via workflow_dispatch.
+#
+# One-time PyPI setup (owner, before the first release):
+#   PyPI -> project "folio-resolve" -> Publishing -> add a Trusted Publisher:
+#     Owner: damienriehl / Repository: folio-resolve
+#     Workflow: publish.yml / Environment: pypi
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build sdist + wheel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Build distributions
+        run: uv build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    name: Publish to PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write  # required for Trusted Publishing (OIDC)
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
