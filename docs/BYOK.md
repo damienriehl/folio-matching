@@ -1,11 +1,11 @@
 # Bring Your Own Key (BYOK)
 
-`folio-matching` is **key-agnostic**. The library never reads an environment variable, never
+`folio-resolve` is **key-agnostic**. The library never reads an environment variable, never
 instantiates a provider SDK, and never makes a network call on its own. Everything that needs an
 LLM or an embedding model is a **`typing.Protocol` seam** you fill with an object you construct —
 so *you* own the key, the vendor choice, the spend, and the ret/o retry policy.
 
-This document is for **admin users deploying a consumer app** on top of `folio-matching`: it explains
+This document is for **admin users deploying a consumer app** on top of `folio-resolve`: it explains
 what runs with no key at all, which stages want a provider, how to wire OpenAI / Gemini / Anthropic /
 a local model, how the system degrades when no key is present, and roughly what a real run costs.
 
@@ -14,7 +14,7 @@ a local model, how the system degrades when no key is present, and roughly what 
 ## 1. The zero-key deterministic core
 
 The **entire core is pure-Python and needs no API key, no model download, and no network.** Install
-`folio-matching` with no extras and every capability in this table works offline:
+`folio-resolve` with no extras and every capability in this table works offline:
 
 | Capability | Module | What it does with no key |
 |---|---|---|
@@ -36,7 +36,7 @@ stages** when no judge is supplied — you still get ruler + label-search + deco
 simply skipped.
 
 ```python
-from folio_matching import InMemoryOntology, Concept, MatchPipeline
+from folio_resolve import InMemoryOntology, Concept, MatchPipeline
 
 ontology = InMemoryOntology([
     Concept(iri="R-arb", label="Arbitration Rules", branch="Service"),
@@ -58,9 +58,9 @@ satisfies it; there is no base class to import and no vendor lock-in.
 
 | Seam | Protocol | Method(s) | What it buys you | Skipped when absent |
 |---|---|---|---|---|
-| **Judge** | `folio_matching.judge.Judge` | `complete(system: str, user: str) -> str` | context-aware disambiguation + verdict enforcement (Defenses → *Litigation* Defenses) | candidates pass through unjudged |
-| **Embeddings** | `folio_matching.embedding.EmbeddingProvider` | `embed`, `embed_batch`, `dimension` | semantic recall for "no shared label token" maps (Presumptions → Burdens of Proof) | semantic path contributes nothing; a pure-Python hashing default keeps it *exercisable* but not production-grade |
-| **Domain-prior suggestions** | `folio_matching.domain_prior.DomainPriorSuggester` | (constructed with an `OntologyProvider`) | auto-suggest corpus subject tags for human validation | you supply subject tags manually (or omit them) |
+| **Judge** | `folio_resolve.judge.Judge` | `complete(system: str, user: str) -> str` | context-aware disambiguation + verdict enforcement (Defenses → *Litigation* Defenses) | candidates pass through unjudged |
+| **Embeddings** | `folio_resolve.embedding.EmbeddingProvider` | `embed`, `embed_batch`, `dimension` | semantic recall for "no shared label token" maps (Presumptions → Burdens of Proof) | semantic path contributes nothing; a pure-Python hashing default keeps it *exercisable* but not production-grade |
+| **Domain-prior suggestions** | `folio_resolve.domain_prior.DomainPriorSuggester` | (constructed with an `OntologyProvider`) | auto-suggest corpus subject tags for human validation | you supply subject tags manually (or omit them) |
 
 The `Ontology` itself is also a `Protocol` (`OntologyProvider`): `InMemoryOntology` needs no key;
 `FolioPythonProvider` (the `[folio]` extra) loads the live 18k-concept FOLIO ontology locally — still
@@ -72,7 +72,7 @@ The library ships the **prompt builders and the deterministic verdict enforcemen
 must be identical across every consumer — and leaves only the raw model call to you:
 
 ```python
-from folio_matching import build_judge_prompt, parse_judge_json, enforce_verdict
+from folio_resolve import build_judge_prompt, parse_judge_json, enforce_verdict
 
 # candidates: list of {"iri_hash", "score", ...}; ranked_by_iri maps iri_hash -> original score
 system, user = build_judge_prompt(text, candidates, document_type="litigation treatise")
@@ -186,12 +186,12 @@ class LocalJudge:
 
 ### Embeddings
 
-The embedding seam is analogous. `folio-matching[embedding]` ships `LocalEmbeddingProvider`
+The embedding seam is analogous. `folio-resolve[embedding]` ships `LocalEmbeddingProvider`
 (`all-MiniLM-L6-v2`, runs locally, no API key) — recommended for most deployments. To use a hosted
 embedding vendor, implement the three-method `EmbeddingProvider` Protocol against its API the same way.
 
 ```python
-from folio_matching.embedding import LocalEmbeddingProvider, BruteForceIndex
+from folio_resolve.embedding import LocalEmbeddingProvider, BruteForceIndex
 index = BruteForceIndex(LocalEmbeddingProvider())   # local model, no key
 ```
 
@@ -202,7 +202,7 @@ index = BruteForceIndex(LocalEmbeddingProvider())   # local model, no key
 ### Recommended env-var conventions
 
 The library reads **nothing** from the environment — these names are a *convention for your app*, chosen
-to match what a `folio-matching` consumer (e.g. `folio-insights`) already uses so operators see one
+to match what a `folio-resolve` consumer (e.g. `folio-insights`) already uses so operators see one
 scheme across repos:
 
 | Variable | Meaning |
@@ -231,7 +231,7 @@ def build_judge():
 
 ### Graceful degradation semantics
 
-`folio-matching` is designed to **degrade, not crash**, when a key is absent:
+`folio-resolve` is designed to **degrade, not crash**, when a key is absent:
 
 - **No judge** → the pipeline runs `filter → expand → rank` and returns the survivors as-is. Nothing is
   raised. Items that *would* have been judged are simply not judged.

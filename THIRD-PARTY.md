@@ -1,6 +1,6 @@
 # Third-Party Components & Attribution
 
-`folio-matching` is MIT-licensed. This file logs (1) the internal components lifted into this
+`folio-resolve` is MIT-licensed. This file logs (1) the internal components lifted into this
 package and (2) every third-party dependency with its license, per house policy.
 
 ## Components extracted from sibling repos (lift-and-improve)

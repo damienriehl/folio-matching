@@ -1,4 +1,4 @@
-# folio-matching
+# folio-resolve
 
 **The shared FOLIO source-text→concept matching engine.** One pinned, MIT-licensed Python library
 that maps arbitrary source text (book headings, deposition transcripts, intake narratives, task
@@ -7,7 +7,7 @@ titles) to concepts in [FOLIO](https://folio.openlegalstandard.org) — the open
 
 > This is a **lift-and-improve** extraction. The matching intelligence already existed across
 > `folio-mapper`, `folio-enrich`, and `folio-insights` — but it had **diverged** (enrich literally
-> forked mapper's scorer) and was informally shared through a fragile `sys.path` hack. `folio-matching`
+> forked mapper's scorer) and was informally shared through a fragile `sys.path` hack. `folio-resolve`
 > is the single source of truth those repos now pin, plus the capabilities the recorded failures demanded.
 
 ---
@@ -64,10 +64,10 @@ label token (Presumptions → Litigation Burdens of Proof). Those became this li
 ## Install
 
 ```bash
-uv add folio-matching                 # core (pure-Python, only pydantic)
-uv add "folio-matching[folio]"        # + folio-python live ontology adapter
-uv add "folio-matching[embedding]"    # + sentence-transformers / faiss for the semantic path
-uv add "folio-matching[spacy]"        # + optional spaCy ruler adapter
+uv add folio-resolve                 # core (pure-Python, only pydantic)
+uv add "folio-resolve[folio]"        # + folio-python live ontology adapter
+uv add "folio-resolve[embedding]"    # + sentence-transformers / faiss for the semantic path
+uv add "folio-resolve[spacy]"        # + optional spaCy ruler adapter
 ```
 
 The **core is pure-Python** — the scorer, decomposition, gates, blocklist, domain-prior, reconciler,
@@ -77,7 +77,7 @@ defaults, so the whole test suite runs with no model downloads and no network.
 
 ## Bring Your Own Key (BYOK)
 
-`folio-matching` is **key-agnostic** — it never reads an env var, instantiates a provider SDK, or makes
+`folio-resolve` is **key-agnostic** — it never reads an env var, instantiates a provider SDK, or makes
 a network call on its own. The **zero-key deterministic core** (ruler, scoring, decomposition, gates,
 blocklist, metadata exclusion, calibration, annotate) runs fully offline and free. Three optional stages
 accept a provider through a `typing.Protocol` seam you fill with an object you construct:
@@ -98,7 +98,7 @@ vendor: **[docs/BYOK.md](docs/BYOK.md)**.
 ## Quick start
 
 ```python
-from folio_matching import InMemoryOntology, Concept, MatchPipeline, DomainPrior
+from folio_resolve import InMemoryOntology, Concept, MatchPipeline, DomainPrior
 
 ontology = InMemoryOntology([
     Concept(iri="R-defenses", label="Litigation Defenses", branch="Objectives"),
