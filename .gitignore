@@ -8,3 +8,5 @@ __pycache__/
 dist/
 build/
 .folio/
+# ruler-shootout raw per-engine captures (large corpus match dumps; summary is committed)
+bench/results/
